@@ -13,11 +13,11 @@ import { errorCreator } from "../../utils/errorCreator";
 
 const handle401 = (httpCodeException) => {
   if (httpCodeException.body && httpCodeException.body.type) {
-    if (httpCodeException.body.type == UNAUTHENTICATED)
+    if (httpCodeException.body.type === UNAUTHENTICATED)
       return errorCreator(UN_AUTHENTICATED, {});
-    if (httpCodeException.body.type == TOKEN_EXPIRED)
+    if (httpCodeException.body.type === TOKEN_EXPIRED)
       return errorCreator(TOKEN_EXPIRED, {});
-    if (httpCodeException.body.type == TOKEN_INVALID)
+    if (httpCodeException.body.type === TOKEN_INVALID)
       return errorCreator(TOKEN_INVALID, {});
   }
   return errorCreator(UN_KNOWN, {});
@@ -40,7 +40,7 @@ const returnError = (ERROR_CONST) => () => {
 
 const handleUnknownCode = (httpCodeException) => {
   const status = httpCodeException.status;
-  const isServiceDown = Math.floor(status / 100) == 5;
+  const isServiceDown = Math.floor(status / 100) === 5;
   if (isServiceDown) {
     returnError({ type: SERVICE_DOWN, details: {} });
   } else {
