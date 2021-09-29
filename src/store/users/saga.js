@@ -30,14 +30,13 @@ function* loginUser({ payload: { credentials, history } }) {
     credentials.password,
   ]);
 
-  if (resultAction.type == LOGIN_USER_FAILURE) {
+  if (resultAction.type === LOGIN_USER_FAILURE) {
     yield put(loginUserFailure(resultAction.payload.error));
     return;
   }
 
   localStorage.setItem("login", JSON.stringify(resultAction.payload));
-  // eslint-disable-next-line prettier/prettier
-  console.log('resultAction',resultAction)
+
   yield put(loginUserSuccess(resultAction.payload.token));
 
   history.push("/dashboard");
@@ -47,7 +46,7 @@ function* logoutUser({ payload: { history } }) {
   const usersAdapter = createApi().users;
   const resultAction = yield apply(usersAdapter, usersAdapter.logout, []);
 
-  if (resultAction.type == LOGOUT_USER_FAILURE) {
+  if (resultAction.type === LOGOUT_USER_FAILURE) {
     return;
   }
 
