@@ -4,7 +4,8 @@ import { withRouter } from "react-router-dom";
 import TableList from "./pages/TableList";
 
 // actions
-import { loginUser } from "../../store/users/actions";
+import { addAttendance } from "../../store/attendances/actions";
+import {search,listUsers} from "../../store/users/actions";
 import { actionWithPromise } from "../../middlewares/promises";
 import { HistoryWarpper } from "../../utils/history";
 
@@ -14,8 +15,14 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmitLogin: (credintials) => {
-      return dispatch(actionWithPromise(loginUser(credintials)));
+    addAttendance: (attendance) => {
+      return dispatch(actionWithPromise(addAttendance(attendance)));
+    },
+    listUsers: (groupId) => {
+      return dispatch(actionWithPromise(listUsers(groupId)));
+    },
+    search: (name, groupId) => {
+      return dispatch(actionWithPromise(search(groupId)));
     },
     goToDashboard: () => HistoryWarpper.history.push("/"),
   };

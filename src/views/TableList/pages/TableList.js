@@ -60,7 +60,7 @@ export default function TableList(props) {
             inputProps={{
               type: "checkbox",
               onChange: () => props.isAttended(),
-              checked: attendances.find((attendance) => attendance.id == userId)
+              checked: attendances.find((attendance) => attendance.id === userId)
                 .isAttend,
             }}
           />
@@ -98,7 +98,8 @@ TableList.defaultProps = {
 
 TableList.propTypes = {
   users: PropTypes.array,
-  getUsers: PropTypes.func,
-  isAttended: PropTypes.func,
+  listUsers: PropTypes.func,
+  addAttendance: PropTypes.func,
+  search:PropTypes.func,
   groups: PropTypes.func,
 };

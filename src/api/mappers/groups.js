@@ -10,6 +10,7 @@ export function fromAPI(apiGroup) {
   return {
     group: removeUndefinedKeys({
       id: apiGroup.id,
+      identifier: apiGroup.identifier,
       name: apiGroup.name,
     }),
   };

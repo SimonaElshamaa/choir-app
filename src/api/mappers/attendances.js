@@ -18,8 +18,8 @@ export function fromAPI(apiAttendance) {
   return {
     attendance: removeUndefinedKeys({
       id: apiAttendance.id,
-      user_id: apiAttendance.user_id,
-      group_id: apiAttendance.group_id,
+      userId: apiAttendance.useId,
+      groupId: apiAttendance.groupId,
       attend: apiAttendance.attend,
       note: apiAttendance.note,
       ...dates,

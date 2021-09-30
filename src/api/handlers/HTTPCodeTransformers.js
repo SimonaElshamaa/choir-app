@@ -50,6 +50,7 @@ const handleUnknownCode = (httpCodeException) => {
 
 export const defaultHTTPHandlers = {
   401: handle401,
+  400:handle422,
   403: returnError({ type: UN_AUTHORIZED, details: {} }),
   422: handle422,
   404: handle404,

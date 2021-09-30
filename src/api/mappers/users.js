@@ -4,43 +4,37 @@ import {
   uniqueEntities,
 } from "../../utils/helpers";
 
-import groupsMapper from "./groups";
-
 export function fromAPI(apiUser) {
   const dates = getFormatedDates(
     removeUndefinedKeys({
       createdAt: apiUser.createdAt,
       updatedAt: apiUser.updatedAt,
-      date_of_birth: apiUser.date_of_birth,
+      dateOfBirth: apiUser.dateOfBirth,
     })
   );
-
-  let { group } = apiUser.menu
-    ? groupsMapper.fromAPI(apiUser.group)
-    : undefined;
 
   return {
     user: removeUndefinedKeys({
       id: apiUser.id,
       email: apiUser.email,
       password: apiUser.password,
-      full_name: apiUser.full_name,
+      fullName: apiUser.fullName,
       mobile: apiUser.mobile,
       address: apiUser.address,
       image: apiUser.image,
       note: apiUser.note,
-      confession_priest: apiUser.confession_priest,
+      confessionPriest: apiUser.confessionPriest,
       church: apiUser.church,
-      father_mobile_number: apiUser.father_mobile_number,
-      mother_mobile_number: apiUser.mother_mobile_number,
-      father_confession_priest: apiUser.father_confession_priest,
-      mother_confession_priest: apiUser.mother_confession_priest,
-      father_job: apiUser.father_job,
-      mother_job: apiUser.mother_job,
+      fatherMobileNumber: apiUser.fatherMobileNumber,
+      motherMobileNumber: apiUser.motherMobileNumber,
+      fatherConfessionPriest: apiUser.fatherConfessionPriest,
+      motherConfessionPriest: apiUser.motherConfessionPriest,
+      fatherJob: apiUser.fatherJob,
+      motherJob: apiUser.motherJob,
       sisters: apiUser.sisters,
       brothers: apiUser.brothers,
-      role_ids: apiUser.role_ids,
-      group,
+      roleIds: apiUser.roleIds,
+      groupId:apiUser.groupId,
       ...dates,
     }),
   };

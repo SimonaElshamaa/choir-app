@@ -54,6 +54,12 @@ export default function GroupsList(props) {
     setGroupId(group);
     setOpenGroupsList(null);
   };
+
+  const groupName =()=>{
+    const name= week.find((day)=>day.id === groupId)?.name;
+    return name?`: ${name}`:"";
+  };
+
   return (
     <div>
       <div className={classes.manager}>
@@ -63,7 +69,7 @@ export default function GroupsList(props) {
       aria-haspopup="true"
       onClick={handleClickGroupSelector}
       >
-        {`group:${week.find((day)=>day.id === groupId)?.name}`}
+        {`group${groupName()}`}
       </Button>
          <Poppers
           open={Boolean(openGroupsList)}
@@ -118,8 +124,11 @@ export default function GroupsList(props) {
   );
 }
 
-GroupsList.defaultProps = {};
+GroupsList.defaultProps = {
+  groupId:null
+};
 
 GroupsList.propTypes = {
-  setSelectedGroup: PropTypes.func.isRequired,
+  setGroupId: PropTypes.func.isRequired,
+  groupId: PropTypes.number,
 };

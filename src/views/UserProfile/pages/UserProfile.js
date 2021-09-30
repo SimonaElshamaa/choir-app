@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,7 +58,7 @@ export default function UserProfile(props) {
   const [motherConfessionPriest, setMotherConfessionPriest] = useState("");
   const [motherJob, setMotherJob] = useState("");
   const [note, setNote] = useState("");
-  const [openGroupsList, setOpenGroupsList] = useState(null);
+  const [groupId, setGroupId] = useState(null);
 
   
   const onPressAddMember = () => {
@@ -78,6 +78,7 @@ export default function UserProfile(props) {
       fatherConfessionPriest,
       motherConfessionPriest,
       note,
+      groupId,
     };
     props
       .addUser(user)
@@ -321,7 +322,7 @@ export default function UserProfile(props) {
               </GridContainer>
             </CardBody>
             <CardFooter>
-               <GroupsList />
+              <GroupsList groupId={groupId} setGroupId={setGroupId} />
               <Button color="primary" onClick={onPressAddMember}>
                 Add Member
               </Button>
