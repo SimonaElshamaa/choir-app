@@ -19,7 +19,7 @@ export default class UsersApi {
 
   listUsers(groupId) {
     return this.driver.get(
-      this.storesPrefix + "/get_group_users",
+      this.storesPrefix + `/get_group_users/${groupId}`,
       {
         group_id: groupId,
       },
@@ -28,7 +28,6 @@ export default class UsersApi {
   }
 
   addUser(user) {
-    console.log("inApi", user);
     return this.driver.post(
       this.storesPrefix + "/add_user",
       user,

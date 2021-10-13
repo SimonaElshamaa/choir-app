@@ -57,15 +57,13 @@ function* logoutUser({ payload: { history } }) {
   history.push("/login");
 }
 
-function* listUsers() {
+function* listUsers(groupId) {
   const usersAdapter = createApi().users;
-  const resultAction = yield apply(usersAdapter, usersAdapter.listUsers, []);
-
+  const resultAction = yield apply(usersAdapter, usersAdapter.listUsers, [groupId]);
   yield put(resultAction);
 }
 
 function* addUser({ payload: { user } }) {
-  console.log("userrrr", user);
   const usersAdapter = createApi().users;
   const resultAction = yield apply(usersAdapter, usersAdapter.addUser, [user]);
   console.log(resultAction);

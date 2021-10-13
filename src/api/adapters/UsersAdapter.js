@@ -107,7 +107,7 @@ export default class UsersAdapter {
         })
         .catch(handleFailure(resolve, addUserFailure));
     });
-  }
+}
 
   search(name, groupId) {
     return new Promise((resolve) => {
@@ -116,7 +116,7 @@ export default class UsersAdapter {
         .then(([status, body]) => {
           switch (status) {
             case 204: {
-              const { users } = UsersMapper.fromAPIList(body.data);
+              const { users } = UsersMapper.fromAPIList(body);
               resolve(searchSuccess(users));
               return;
             }

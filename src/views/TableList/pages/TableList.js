@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -48,6 +48,14 @@ const useStyles = makeStyles(styles);
 export default function TableList(props) {
   const classes = useStyles();
   const attendances = useState[[]];
+  const [groupId,setGroupId]=useState(null)
+
+  useEffect(() => {
+    if(groupId != null){
+      props.listUsers().then().catch();
+    }
+  }, [groupId]);
+
   const attendanceButton = (userId) => {
     return (
       <GridContainer>
@@ -74,7 +82,7 @@ export default function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary">
-            <GroupsList />
+            <GroupsList groupId={groupId} setGroupId={setGroupId}/>
             <p className={classes.cardCategoryWhite}>Selected Group</p>
           </CardHeader>
           <CardBody>
