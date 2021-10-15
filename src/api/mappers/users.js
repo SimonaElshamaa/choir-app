@@ -1,7 +1,7 @@
+/* eslint-disable import/no-anonymous-default-export */
 import {
   getFormatedDates,
   removeUndefinedKeys,
-  uniqueEntities,
 } from "../../utils/helpers";
 
 export function fromAPI(apiUser) {
@@ -51,7 +51,7 @@ export function fromAPIList(apiUsers) {
     allUsers.push(user);
   });
 
-  result.groups = uniqueEntities(allUsers);
+  result.users = allUsers;
   return result;
 }
 

@@ -62,7 +62,7 @@ export default function UserProfile(props) {
 
   
   const onPressAddMember = () => {
-    const user = {
+    let user = {
       email,
       password,
       fullName,

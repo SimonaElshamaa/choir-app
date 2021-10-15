@@ -31,7 +31,6 @@ const useStyles = makeStyles(styles);
 export default function GroupsList(props) {
   const classes = useStyles();
   const [openGroupsList, setOpenGroupsList] = useState(null);
-  const [groupId, setGroupId] = useState("");
 
   const week = [
     {name:"Saturday", id:SATURDAY},
@@ -43,20 +42,19 @@ export default function GroupsList(props) {
     {name:"Friday", id:FRIDAY},
   ];
   const handleClickGroupSelector = (event) => {
-    console.log(event)
     if (openGroupsList && openGroupsList.contains(event.target)) {
       setOpenGroupsList(null);
     } else {
       setOpenGroupsList(event.currentTarget);
     }
   };
-  const handleCloseGroupSelector = (group = "") => () => {
-    setGroupId(group);
+  const handleCloseGroupSelector = (group = null) => () => {
+    props.setGroupId(group);
     setOpenGroupsList(null);
   };
 
   const groupName =()=>{
-    const name= week.find((day)=>day.id === groupId)?.name;
+    const name= week.find((day)=>day.id === props.groupId)?.name;
     return name?`: ${name}`:"";
   };
 

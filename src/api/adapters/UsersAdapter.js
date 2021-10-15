@@ -30,6 +30,7 @@ export default class UsersAdapter {
         .login(email, password)
         .then(([status, body]) => {
           switch (status) {
+            case 204:
             case 200: {
               resolve(loginUserSuccess(body.data.Authorization));
               return;
@@ -51,6 +52,7 @@ export default class UsersAdapter {
         .logout()
         .then(([status, body]) => {
           switch (status) {
+            case 200:
             case 204:
               resolve(logoutUserSuccess());
               return;
@@ -71,6 +73,7 @@ export default class UsersAdapter {
         .listUsers(groupId)
         .then(([status, body]) => {
           switch (status) {
+            case 200:
             case 204: {
               const { users } = UsersMapper.fromAPIList(body.data);
               resolve(listUsersSuccess(users));
@@ -93,6 +96,7 @@ export default class UsersAdapter {
         .addUser(user)
         .then(([status, body]) => {
           switch (status) {
+            case 200:
             case 204: {
               const { user } = UsersMapper.fromAPI(body.data);
               resolve(addUserSuccess(user));
@@ -115,6 +119,7 @@ export default class UsersAdapter {
         .search(name, groupId)
         .then(([status, body]) => {
           switch (status) {
+            case 200:
             case 204: {
               const { users } = UsersMapper.fromAPIList(body);
               resolve(searchSuccess(users));
