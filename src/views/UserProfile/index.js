@@ -6,7 +6,7 @@ import UserProfile from "./pages/UserProfile";
 // actions
 import { addUser } from "../../store/users/actions";
 import { actionWithPromise } from "../../middlewares/promises";
-import { HistoryWarpper } from "../../utils/history";
+// import { HistoryWarpper } from "../../utils/history";
 
 const mapStateToProps = () => {
   return {};

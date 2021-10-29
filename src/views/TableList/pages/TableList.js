@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState,useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,14 +48,23 @@ const useStyles = makeStyles(styles);
 
 export default function TableList(props) {
   const classes = useStyles();
-  const attendances = useState[[]];
+  // const [attendances,setAttendances] = useState([]);
   const [groupId,setGroupId]=useState(null)
+  const note = useState("")
+
 
   useEffect(() => {
     if(groupId != null){
-      props.listUsers().then().catch();
+      props.listUsers(groupId);
     }
   }, [groupId]);
+
+  useEffect(() => {
+    if(groupId != null){
+      const date = new Date();
+      props.listGroupAttendance(groupId, date);
+    }
+  }, []);
 
   const attendanceButton = (userId) => {
     return (
@@ -67,9 +77,17 @@ export default function TableList(props) {
             }}
             inputProps={{
               type: "checkbox",
-              onChange: () => props.isAttended(),
-              checked: attendances.find((attendance) => attendance.id === userId)
-                .isAttend,
+              onChange: (event) =>{
+                return props.addAttendance(
+                  userId,
+                  new Date(),
+                  event.target.checked,
+                  groupId,
+                )
+              } ,
+              checked:true
+              // attendances.find((attendance) => attendance.id === userId)
+              // .isAttend,
             }}
           />
         </GridItem>
@@ -88,9 +106,9 @@ export default function TableList(props) {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["ID", "Name", "attendance"]}
+              tableHead={["Name","Note", "attendance"]}
               tableData={props.users.map((user) => {
-                return [user.id, user.name, attendanceButton(6)];
+                return [user.fullName,note, attendanceButton(user.id)];
               })}
             />
           </CardBody>
@@ -108,6 +126,7 @@ TableList.propTypes = {
   users: PropTypes.array,
   listUsers: PropTypes.func,
   addAttendance: PropTypes.func,
+  listGroupAttendance: PropTypes.func,
   search:PropTypes.func,
   groups: PropTypes.func,
 };

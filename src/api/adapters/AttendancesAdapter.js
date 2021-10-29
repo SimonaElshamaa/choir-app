@@ -3,6 +3,8 @@ import AttendancesMapper from "../mappers/attendances";
 import {
   addAttendanceFailure,
   addAttendanceSuccess,
+  listGroupAttendanceFailure,
+  listGroupAttendanceSuccess,
 } from "../../store/attendances/actions";
 
 import ErrorsMapper from "../mappers/errors";
@@ -15,10 +17,10 @@ export default class GroupsAdapter {
     this.attendancesApi = new AttendancesApi(driver);
   }
 
-  addAttendance(date, user_id, group_id, attend, note) {
+  addAttendance(attendance) {
     return new Promise((resolve) => {
       this.attendancesApi
-        .add_attendance(date, user_id, group_id, attend, note)
+        .add_attendance(attendance)
         .then(([status, body]) => {
           switch (status) {
             case 200: {
@@ -34,6 +36,27 @@ export default class GroupsAdapter {
           }
         })
         .catch(handleFailure(resolve, addAttendanceFailure));
+    });
+  }
+  get_attendances(date, groupId) {
+    return new Promise((resolve) => {
+      this.attendancesApi
+        .get_attendances(date, groupId)
+        .then(([status, body]) => {
+          switch (status) {
+            case 200: {
+              const { attendance } = AttendancesMapper.fromAPIList(body.data);
+              resolve(listGroupAttendanceSuccess(attendance));
+              return;
+            }
+            default:
+              throw new HTTPCodeException({
+                status,
+                body: ErrorsMapper.fromAPI(body),
+              });
+          }
+        })
+        .catch(handleFailure(resolve, listGroupAttendanceFailure));
     });
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export const UN_KNOWN = "UN_KNOWN";
 export const UNAUTHENTICATED = "UNAUTHENTICATED";
 export const UN_AUTHENTICATED = "UN_AUTHENTICATED";

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import { toByIds } from "../../utils/helpers";
 
 import { LIST_GROUPS_SUCCESS } from "./actions";

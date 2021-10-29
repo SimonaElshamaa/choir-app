@@ -27,7 +27,7 @@ export const toByIds = (prevEntitiesById, currentEntities) => {
 };
 
 export const checkHasId = (entity) => {
-  if (!entity.id) {
+  if (!entity._id) {
     throw new Error("Entity has no Id");
   }
 };

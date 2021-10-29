@@ -15,7 +15,7 @@ export function fromAPI(apiUser) {
 
   return {
     user: removeUndefinedKeys({
-      id: apiUser.id,
+      id: apiUser._id,
       email: apiUser.email,
       password: apiUser.password,
       fullName: apiUser.fullName,

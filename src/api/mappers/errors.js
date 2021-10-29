@@ -4,6 +4,7 @@ export function fromAPI(error) {
     details: error.details,
   };
 }
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   fromAPI,
 };

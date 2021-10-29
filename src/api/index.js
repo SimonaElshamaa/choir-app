@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import factory from "./factory";
 import Rest from "../utils/api/rest";
 import apiConfig from "../config/api";

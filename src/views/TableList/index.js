@@ -4,19 +4,30 @@ import { withRouter } from "react-router-dom";
 import TableList from "./pages/TableList";
 
 // actions
-import { addAttendance } from "../../store/attendances/actions";
+import { addAttendance, listGroupAttendance } from "../../store/attendances/actions";
 import {search,listUsers} from "../../store/users/actions";
+import {getAll as getAllUsers} from "../../store/users/selectors";
+import {getGroupAttendance} from "../../store/attendances/selectors";
+
 import { actionWithPromise } from "../../middlewares/promises";
 import { HistoryWarpper } from "../../utils/history";
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    users:getAllUsers(state),
+    attendance:getGroupAttendance(state)
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addAttendance: (attendance) => {
-      return dispatch(actionWithPromise(addAttendance(attendance)));
+    addAttendance: (
+      userId,
+      date,
+      attend,
+      groupId,
+      ) => {
+      return dispatch(actionWithPromise(addAttendance(userId, date, attend, groupId)));
     },
     listUsers: (groupId) => {
       return dispatch(actionWithPromise(listUsers(groupId)));
@@ -25,6 +36,9 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionWithPromise(search(groupId)));
     },
     goToDashboard: () => HistoryWarpper.history.push("/"),
+    listGroupAttendance:(date, groupId) => {
+      return dispatch(actionWithPromise(listGroupAttendance(groupId, date)));
+    },
   };
 };
 

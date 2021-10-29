@@ -8,13 +8,14 @@ export default function* authSaga() {
   yield takeEvery(ADD_ATTENDANCE_REQUEST, addAttendance);
 }
 
-function* addAttendance() {
-  // eslint-disable-next-line prettier/prettier
-  console.log('resultttt');
+function* addAttendance(action) {
+  const {attendance} = action.payload;
+
   const attendancesAdapter = createApi().attendances;
   const resultAction = yield apply(
     attendancesAdapter,
-    attendancesAdapter.addAttendance
+    attendancesAdapter.addAttendance,
+    [attendance]
   );
   yield put(resultAction);
 }

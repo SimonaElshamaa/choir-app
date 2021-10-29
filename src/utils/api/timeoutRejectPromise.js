@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 export default (timeout) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

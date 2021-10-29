@@ -6,27 +6,18 @@ export default class GroupsApi {
     this.groupsPrefix = "/attendances";
   }
 
-  add_attendance(date, user_id, group_id, attend, note) {
+  add_attendance(attendance) {
     return this.driver.post(
       this.groupsPrefix + "/add_attendance",
-      {
-        date,
-        user_id,
-        group_id,
-        attend,
-        note,
-      },
+      attendance,
       authHeader()
     );
   }
 
-  get_attendances(date, group_id) {
+  get_attendances(date, groupId) {
     return this.driver.get(
-      this.groupsPrefix + "/add_group",
-      {
-        date,
-        group_id,
-      },
+      `${this.groupsPrefix} + /get_group_attendance_by_date/${groupId}/${date}`,
+      {},
       authHeader()
     );
   }

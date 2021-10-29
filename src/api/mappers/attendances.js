@@ -17,7 +17,7 @@ export function fromAPI(apiAttendance) {
 
   return {
     attendance: removeUndefinedKeys({
-      id: apiAttendance.id,
+      id: apiAttendance._id,
       userId: apiAttendance.useId,
       groupId: apiAttendance.groupId,
       attend: apiAttendance.attend,
@@ -42,6 +42,7 @@ export function fromAPIList(apiAttendances) {
   return result;
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   fromAPI,
   fromAPIList,

@@ -9,8 +9,6 @@ export default function* authSaga() {
 }
 
 function* listGroups() {
-  // eslint-disable-next-line prettier/prettier
-  console.log('resultttt');
   const groupsAdapter = createApi().groups;
   const resultAction = yield apply(groupsAdapter, groupsAdapter.listGroups);
   yield put(resultAction);

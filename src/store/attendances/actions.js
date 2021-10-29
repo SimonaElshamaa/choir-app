@@ -1,5 +1,6 @@
 import {
   ADD_ATTENDANCE,
+  LIST_GROUP_ATTENDANCE,
   getActionType,
   REQUEST,
   SUCCESS,
@@ -13,15 +14,20 @@ export const ADD_ATTENDANCE_REQUEST = getActionType(ADD_ATTENDANCE, REQUEST);
 export const ADD_ATTENDANCE_SUCCESS = getActionType(ADD_ATTENDANCE, SUCCESS);
 export const ADD_ATTENDANCE_FAILURE = getActionType(ADD_ATTENDANCE, FAILURE);
 
-export const addAttendance = ({ date, user_id, group_id, attend, note }) => {
-  return {
+export const LIST_GROUP_ATTENDANCE_REQUEST = getActionType(LIST_GROUP_ATTENDANCE, REQUEST);
+export const LIST_GROUP_ATTENDANCE_SUCCESS = getActionType(LIST_GROUP_ATTENDANCE, SUCCESS);
+export const LIST_GROUP_ATTENDANCE_FAILURE = getActionType(LIST_GROUP_ATTENDANCE, FAILURE);
+
+export const addAttendance = ( userId = null, date = '', attend = false, groupId = null, note = '' ) => {
+
+ return {
     type: ADD_ATTENDANCE_REQUEST,
     payload: {
       attendance: {
+        userId,
         date,
-        user_id,
-        group_id,
         attend,
+        groupId,
         note,
       },
     },
@@ -38,6 +44,29 @@ export const addAttendanceSuccess = (attendance = {}) => {
 export function addAttendanceFailure(error = null) {
   return {
     type: ADD_ATTENDANCE_FAILURE,
+    payload: { error },
+  };
+}
+
+export const listGroupAttendance = (groupId = null, date = '' ) => {
+  return {
+    type: LIST_GROUP_ATTENDANCE_REQUEST,
+    payload: {
+      attendance: {groupId, date},
+    },
+  };
+};
+
+export const listGroupAttendanceSuccess = (attendances = []) => {
+  return {
+    type: LIST_GROUP_ATTENDANCE_SUCCESS,
+    payload: { attendances },
+  };
+};
+
+export function listGroupAttendanceFailure(error = null) {
+  return {
+    type: LIST_GROUP_ATTENDANCE_FAILURE,
     payload: { error },
   };
 }
