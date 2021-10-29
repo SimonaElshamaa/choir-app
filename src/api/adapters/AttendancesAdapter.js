@@ -38,15 +38,15 @@ export default class GroupsAdapter {
         .catch(handleFailure(resolve, addAttendanceFailure));
     });
   }
-  get_attendances(date, groupId) {
+  listAttendances(groupId, today, tomorrow) {
     return new Promise((resolve) => {
       this.attendancesApi
-        .get_attendances(date, groupId)
+        .get_attendances(groupId, today, tomorrow)
         .then(([status, body]) => {
           switch (status) {
             case 200: {
-              const { attendance } = AttendancesMapper.fromAPIList(body.data);
-              resolve(listGroupAttendanceSuccess(attendance));
+              const { attendances } = AttendancesMapper.fromAPIList(body.data);
+              resolve(listGroupAttendanceSuccess(attendances));
               return;
             }
             default:

@@ -36,7 +36,7 @@ const mapDispatchToProps = (dispatch) => {
       return dispatch(actionWithPromise(search(groupId)));
     },
     goToDashboard: () => HistoryWarpper.history.push("/"),
-    listGroupAttendance:(date, groupId) => {
+    listGroupAttendance:(groupId, date) => {
       return dispatch(actionWithPromise(listGroupAttendance(groupId, date)));
     },
   };

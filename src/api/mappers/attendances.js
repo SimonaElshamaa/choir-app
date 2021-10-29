@@ -37,8 +37,7 @@ export function fromAPIList(apiAttendances) {
     const { attendance } = fromAPI(apiAttendance);
     allAttendances.push(attendance);
   });
-
-  result.groups = uniqueEntities(allAttendances);
+  result.attendances = uniqueEntities(allAttendances);
   return result;
 }
 

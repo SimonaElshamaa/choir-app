@@ -52,7 +52,8 @@ export const listGroupAttendance = (groupId = null, date = '' ) => {
   return {
     type: LIST_GROUP_ATTENDANCE_REQUEST,
     payload: {
-      attendance: {groupId, date},
+      groupId,
+      date,
     },
   };
 };

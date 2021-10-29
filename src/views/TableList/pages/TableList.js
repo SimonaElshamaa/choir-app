@@ -48,23 +48,17 @@ const useStyles = makeStyles(styles);
 
 export default function TableList(props) {
   const classes = useStyles();
-  // const [attendances,setAttendances] = useState([]);
   const [groupId,setGroupId]=useState(null)
   const note = useState("")
 
 
   useEffect(() => {
     if(groupId != null){
-      props.listUsers(groupId);
-    }
-  }, [groupId]);
-
-  useEffect(() => {
-    if(groupId != null){
       const date = new Date();
+      props.listUsers(groupId);
       props.listGroupAttendance(groupId, date);
     }
-  }, []);
+  }, [groupId]);
 
   const attendanceButton = (userId) => {
     return (
