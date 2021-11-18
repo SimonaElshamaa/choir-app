@@ -66,13 +66,12 @@ function* listUsers({payload}) {
 function* addUser({ payload: { user } }) {
   const usersAdapter = createApi().users;
   const resultAction = yield apply(usersAdapter, usersAdapter.addUser, [user]);
-  console.log(resultAction);
   yield put(resultAction);
 }
 
 function* search({ payload: { name, groupId } }) {
   const usersAdapter = createApi().users;
-  const resultAction = yield apply(usersAdapter, usersAdapter.addUser, [
+  const resultAction = yield apply(usersAdapter, usersAdapter.search, [
     name,
     groupId,
   ]);

@@ -11,6 +11,7 @@ export const FAILURE = "FAILURE";
  * Must be secure object keys
  */
 export const LIST_GROUPS = "LIST_GROUPS";
+export const CHANGE_GROUP = "CHANGE_GROUP";
 
 /**
  * Helper Methods

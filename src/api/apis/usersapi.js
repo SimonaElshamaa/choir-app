@@ -37,10 +37,10 @@ export default class UsersApi {
 
   search(name, groupId) {
     return this.driver.get(
-      this.storesPrefix + "/search",
+      `${this.storesPrefix}/search/${name}/${groupId}`,
       {
         name,
-        group_id: groupId,
+        groupId,
       },
       authHeader()
     );

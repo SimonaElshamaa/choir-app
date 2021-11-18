@@ -32,6 +32,5 @@ function* listAttendances(action) {
     attendancesAdapter.listAttendances,
     [groupId, today, tomorrow]
   );
-  console.log('resultAction',resultAction)
   yield put(resultAction);
 }

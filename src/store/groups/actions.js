@@ -1,5 +1,6 @@
 import {
   LIST_GROUPS,
+  CHANGE_GROUP,
   getActionType,
   REQUEST,
   SUCCESS,
@@ -12,6 +13,8 @@ import {
 export const LIST_GROUPS_REQUEST = getActionType(LIST_GROUPS, REQUEST);
 export const LIST_GROUPS_SUCCESS = getActionType(LIST_GROUPS, SUCCESS);
 export const LIST_GROUPS_FAILURE = getActionType(LIST_GROUPS, FAILURE);
+
+export const CHANGE_GROUP_REQUEST = getActionType(CHANGE_GROUP, REQUEST);
 
 export const listGroups = () => {
   return {
@@ -26,9 +29,15 @@ export const listGroupsSuccess = (groups = []) => {
   };
 };
 
-export function listGroupsFailure(error = null) {
+export const listGroupsFailure = (error = null) =>{
   return {
     type: LIST_GROUPS_FAILURE,
     payload: { error },
   };
+}
+
+export const changeGroup = ()=>{
+  return {
+    type: CHANGE_GROUP_REQUEST
+  }
 }

@@ -1,5 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { toByIds } from "../../utils/helpers";
+import { CHANGE_GROUP_REQUEST } from "../groups/actions";
 
 import {
   ADD_USER_SUCCESS,
@@ -34,6 +35,7 @@ export default (state = defaultState, action = {}) => {
         ...state,
         ...payload,
       };
+    case CHANGE_GROUP_REQUEST:
     case LOGOUT_USER_SUCCESS:
       return defaultState;
     default:

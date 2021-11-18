@@ -24,6 +24,7 @@ import {
   WEDNESDAY,
   // THURSDAY,
   // FRIDAY
+  getGroupName,
 } from "../../../constants/app/groups";
 
 const useStyles = makeStyles(styles);
@@ -55,7 +56,8 @@ export default function GroupsList(props) {
           onClick={handleClickGroupSelector}
           className={classes.buttonLink}
         >
-          <h4 className={classes.cardTitleWhite}>Select Group</h4>
+          {!props.groupId ?<h4 className={classes.cardTitleWhite}>Select Group</h4>:
+          <h4 className={classes.cardTitleWhite}>Group {getGroupName(props.groupId)}</h4>}
         </Button>
         <Poppers
           open={Boolean(openGroupsList)}

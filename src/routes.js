@@ -22,8 +22,8 @@ import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "./views/Dashboard/Dashboard.js";
 import UserProfile from "./views/UserProfile";
-import TableList from "./views/TableList";
-
+import ProvaList from "./views/ProvaList";
+import AttendancesList from "./views/AttendancesList";
 // core components/views for RTL layout
 import RTLPage from "./views/RTLPage/RTLPage.js";
 
@@ -46,19 +46,27 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Brova List",
+    name: "Prova List",
     rtlName: "قائمة البروفه",
     icon: "content_paste",
-    component: TableList,
+    component: ProvaList,
     layout: "/admin",
   },
+  // {
+  //   path: "/rtl-page",
+  //   name: "RTL Support",
+  //   rtlName: "پشتیبانی از راست به چپ",
+  //   icon: Language,
+  //   component: RTLPage,
+  //   layout: "/rtl",
+  // },
   {
-    path: "/rtl-page",
-    name: "RTL Support",
-    rtlName: "پشتیبانی از راست به چپ",
-    icon: Language,
-    component: RTLPage,
-    layout: "/rtl",
+    path: "/AttendancesList",
+    name: "Group Attendances",
+    rtlName: "قائمة البروفه",
+    icon: "content_paste",
+    component: AttendancesList,
+    layout: "/admin",
   },
 ];
 

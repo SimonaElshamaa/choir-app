@@ -4,17 +4,22 @@ import React, { useState,useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
+import styles from "../../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+
 // core components
 import GridItem from "../../../components/Grid/GridItem.js";
 import GridContainer from "../../../components/Grid/GridContainer.js";
 import Table from "../../../components/Table/Table.js";
 import Card from "../../../components/Card/Card.js";
 import CardHeader from "../../../components/Card/CardHeader.js";
+import Search from "@material-ui/icons/Search";
+import Button from "../../../components/CustomButtons/Button.js";
 import CardBody from "../../../components/Card/CardBody.js";
 import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import GroupsList from "./GroupsList";
+import { TextField } from "@material-ui/core";
 
-const styles = {
+const componentStyles = {
   cardCategoryWhite: {
     "&,& a,& a:hover,& a:focus": {
       color: "rgba(255,255,255,.62)",
@@ -42,48 +47,51 @@ const styles = {
       lineHeight: "1",
     },
   },
+  headerCard:{
+    flexDirection:"column"
+  },
 };
 
-const useStyles = makeStyles(styles);
+const useStyles = makeStyles(componentStyles,styles);
 
 export default function TableList(props) {
   const classes = useStyles();
   const [groupId,setGroupId]=useState(null)
+  const [searchedName,setSearchedName]=useState(null)
   const note = useState("")
 
 
   useEffect(() => {
     if(groupId != null){
       const date = new Date();
+      props.changeGroup();
       props.listUsers(groupId);
       props.listGroupAttendance(groupId, date);
     }
   }, [groupId]);
 
+
+  useEffect(()=>{
+    if(props.attendances.length > 0){
+      console.log(props.attendances)
+    }
+  },[props.attendances]);
+
+  const isAttended = (userId)=>{
+    return props.attendances.find((attendance) => attendance.userId === userId)?.attend;
+  }
+  
   const attendanceButton = (userId) => {
+    isAttended(userId)
     return (
       <GridContainer>
-        <GridItem xs={12} sm={12} md={2}>
-          <CustomInput
-            id={userId.toString()}
-            formControlProps={{
-              fullWidth: true,
-            }}
-            inputProps={{
-              type: "checkbox",
-              onChange: (event) =>{
-                return props.addAttendance(
-                  userId,
-                  new Date(),
-                  event.target.checked,
-                  groupId,
-                )
-              } ,
-              checked:true
-              // attendances.find((attendance) => attendance.id === userId)
-              // .isAttend,
-            }}
-          />
+        <GridItem xs={12} sm={12} md={12} style={{flexDirection:"row"}}>
+         { isAttended(userId) &&
+          <h6>Attended</h6>
+          }
+          { !isAttended(userId) &&
+          <h6>not Attended</h6>
+          }
         </GridItem>
       </GridContainer>
     );
@@ -93,10 +101,35 @@ export default function TableList(props) {
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
-          <CardHeader plain color="primary">
+          <CardHeader plain color="primary" className={classes.headerCard}>
             <GroupsList groupId={groupId} setGroupId={setGroupId}/>
-            <p className={classes.cardCategoryWhite}>Selected Group</p>
           </CardHeader>
+          <div className={classes.searchWrapper} style={{paddingTop:10}}>
+            <CustomInput
+              formControlProps={{
+                className: classes.margin + " " + classes.search,
+              }}
+              inputProps={{
+                placeholder: "Search",
+                inputProps: {
+                  "aria-label": "Search",
+                },
+                onChange: (event) =>setSearchedName(event.target.value),
+                value: searchedName,
+              }}
+            />
+            <Button color="white" aria-label="edit" justIcon round  onClick={() => { 
+              console.log('searchedName,groupId',searchedName,groupId)   
+              if(searchedName&&groupId){
+                const searched =  props.search(searchedName,groupId);
+                console.log('search result',searched)
+              }         
+              else
+               alert('please make sure that you choose group and name to search!');
+            }}>
+              <Search />
+            </Button>
+          </div>
           <CardBody>
             <Table
               tableHeaderColor="primary"
@@ -114,11 +147,14 @@ export default function TableList(props) {
 
 TableList.defaultProps = {
   users: [],
+  attendances:[],
 };
 
 TableList.propTypes = {
   users: PropTypes.array,
+  attendances:PropTypes.array,
   listUsers: PropTypes.func,
+  changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,
   listGroupAttendance: PropTypes.func,
   search:PropTypes.func,

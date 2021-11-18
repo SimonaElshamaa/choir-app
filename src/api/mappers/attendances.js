@@ -14,11 +14,10 @@ export function fromAPI(apiAttendance) {
       date: apiAttendance.date,
     })
   );
-
   return {
     attendance: removeUndefinedKeys({
       id: apiAttendance._id,
-      userId: apiAttendance.useId,
+      userId: apiAttendance.userId,
       groupId: apiAttendance.groupId,
       attend: apiAttendance.attend,
       note: apiAttendance.note,

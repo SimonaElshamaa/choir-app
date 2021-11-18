@@ -121,7 +121,7 @@ export default class UsersAdapter {
           switch (status) {
             case 200:
             case 204: {
-              const { users } = UsersMapper.fromAPIList(body);
+              const { users } = UsersMapper.fromAPIList(body.data);
               resolve(searchSuccess(users));
               return;
             }
