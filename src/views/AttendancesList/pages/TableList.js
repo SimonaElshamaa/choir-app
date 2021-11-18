@@ -17,7 +17,6 @@ import Button from "../../../components/CustomButtons/Button.js";
 import CardBody from "../../../components/Card/CardBody.js";
 import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import GroupsList from "./GroupsList";
-import { TextField } from "@material-ui/core";
 
 const componentStyles = {
   cardCategoryWhite: {

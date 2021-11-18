@@ -18,14 +18,14 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
-import Language from "@material-ui/icons/Language";
+// import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "./views/Dashboard/Dashboard.js";
 import UserProfile from "./views/UserProfile";
 import ProvaList from "./views/ProvaList";
 import AttendancesList from "./views/AttendancesList";
 // core components/views for RTL layout
-import RTLPage from "./views/RTLPage/RTLPage.js";
+// import RTLPage from "./views/RTLPage/RTLPage.js";
 
 const dashboardRoutes = [
   {
