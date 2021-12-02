@@ -3,7 +3,6 @@ import React, { useState,useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-
 import styles from "../../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 
 // core components
@@ -12,11 +11,16 @@ import GridContainer from "../../../components/Grid/GridContainer.js";
 import Table from "../../../components/Table/Table.js";
 import Card from "../../../components/Card/Card.js";
 import CardHeader from "../../../components/Card/CardHeader.js";
-import Search from "@material-ui/icons/Search";
-import Button from "../../../components/CustomButtons/Button.js";
+/* will be used later
+* import Search from "@material-ui/icons/Search";
+* import Button from "../../../components/CustomButtons/Button.js";
+*/
 import CardBody from "../../../components/Card/CardBody.js";
-import CustomInput from "../../../components/CustomInput/CustomInput.js";
+// import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import GroupsList from "./GroupsList";
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 const componentStyles = {
   cardCategoryWhite: {
@@ -56,25 +60,31 @@ const useStyles = makeStyles(componentStyles,styles);
 export default function TableList(props) {
   const classes = useStyles();
   const [groupId,setGroupId]=useState(null)
-  const [searchedName,setSearchedName]=useState(null)
+  // const [searchedName,setSearchedName]=useState(null)
   const note = useState("")
-
+  const [selectedDay, setSelectedDay]= useState(undefined);
 
   useEffect(() => {
     if(groupId != null){
-      const date = new Date();
       props.changeGroup();
-      props.listUsers(groupId);
-      props.listGroupAttendance(groupId, date);
     }
   }, [groupId]);
 
 
   useEffect(()=>{
-    if(props.attendances.length > 0){
-      console.log(props.attendances)
+    console.log("selectedDay",selectedDay,groupId)
+    props.changeGroup();
+    if(groupId && selectedDay){
+      props.listUsers(groupId);    
+      props.listGroupAttendance(groupId, new Date(selectedDay)).then(()=>{
+        if(props.attendances.length <0){
+          alert('sorry this day wasn\'t your group day, OR you didn\'t add attendance`!');
+        }
+      });
+    } else if(!selectedDay || !groupId){
+      alert('please make sure you select both group and date!');
     }
-  },[props.attendances]);
+  },[selectedDay, groupId]);
 
   const isAttended = (userId)=>{
     return props.attendances.find((attendance) => attendance.userId === userId)?.attend;
@@ -103,40 +113,18 @@ export default function TableList(props) {
           <CardHeader plain color="primary" className={classes.headerCard}>
             <GroupsList groupId={groupId} setGroupId={setGroupId}/>
           </CardHeader>
-          <div className={classes.searchWrapper} style={{paddingTop:10}}>
-            <CustomInput
-              formControlProps={{
-                className: classes.margin + " " + classes.search,
-              }}
-              inputProps={{
-                placeholder: "Search",
-                inputProps: {
-                  "aria-label": "Search",
-                },
-                onChange: (event) =>setSearchedName(event.target.value),
-                value: searchedName,
-              }}
-            />
-            <Button color="white" aria-label="edit" justIcon round  onClick={() => { 
-              console.log('searchedName,groupId',searchedName,groupId)   
-              if(searchedName&&groupId){
-                const searched =  props.search(searchedName,groupId);
-                console.log('search result',searched)
-              }         
-              else
-               alert('please make sure that you choose group and name to search!');
-            }}>
-              <Search />
-            </Button>
-          </div>
           <CardBody>
+            <p>Choose a day</p>
+            <DayPickerInput 
+            style={{height:30}}
+            onDayChange={setSelectedDay} />
             <Table
               tableHeaderColor="primary"
               tableHead={["Name","Note", "attendance"]}
               tableData={props.users.map((user) => {
                 return [user.fullName,note, attendanceButton(user.id)];
               })}
-            />
+            /> 
           </CardBody>
         </Card>
       </GridItem>
