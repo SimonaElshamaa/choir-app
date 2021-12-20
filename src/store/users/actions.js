@@ -4,6 +4,7 @@ import {
   LIST_USERS,
   ADD_USER,
   SEARCH,
+  REGISTER_USER,
   getActionType,
   REQUEST,
   SUCCESS,
@@ -28,6 +29,10 @@ export const LIST_USERS_FAILURE = getActionType(LIST_USERS, FAILURE);
 export const ADD_USER_REQUEST = getActionType(ADD_USER, REQUEST);
 export const ADD_USER_SUCCESS = getActionType(ADD_USER, SUCCESS);
 export const ADD_USER_FAILURE = getActionType(ADD_USER, FAILURE);
+
+export const REGISTER_USER_REQUEST = getActionType(REGISTER_USER, REQUEST);
+export const REGISTER_USER_SUCCESS = getActionType(REGISTER_USER, SUCCESS);
+export const REGISTER_USER_FAILURE = getActionType(REGISTER_USER, FAILURE);
 
 export const SEARCH_REQUEST = getActionType(SEARCH, REQUEST);
 export const SEARCH_SUCCESS = getActionType(SEARCH, SUCCESS);
@@ -112,6 +117,28 @@ export function addUserSuccess(user = {}) {
 export function addUserFailure(error = null) {
   return {
     type: ADD_USER_FAILURE,
+    payload: { error },
+  };
+}
+
+export function registerUser(user = {}) {
+  return {
+    type: REGISTER_USER_REQUEST,
+    payload: { user },
+  };
+}
+
+export function registerUserSuccess(user = {}) {
+  return {
+    type: REGISTER_USER_SUCCESS,
+    payload: { user },
+  };
+}
+
+export function registerUserFailure(error = null) {
+  console.log('in failure');
+  return {
+    type: REGISTER_USER_FAILURE,
     payload: { error },
   };
 }

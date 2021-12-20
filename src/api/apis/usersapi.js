@@ -35,6 +35,14 @@ export default class UsersApi {
     );
   }
 
+  registerUser(user) {
+    return this.driver.post(
+      this.storesPrefix + "/register",
+      user,
+      authHeader()
+    );
+  }
+
   search(name, groupId) {
     return this.driver.get(
       `${this.storesPrefix}/search/${name}/${groupId}`,

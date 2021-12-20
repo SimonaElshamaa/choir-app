@@ -12,6 +12,8 @@ import {
   addUserFailure,
   searchFailure,
   searchSuccess,
+  registerUserSuccess,
+  registerUserFailure,
 } from "../../store/users/actions";
 
 import ErrorsMapper from "../mappers/errors";
@@ -111,6 +113,28 @@ export default class UsersAdapter {
         })
         .catch(handleFailure(resolve, addUserFailure));
     });
+}
+
+registerUser(user) {
+  return new Promise((resolve) => {
+    this.usersApi
+      .registerUser(user)
+      .then(([status, body]) => {
+        switch (status) {
+          case 200: {
+            const { user } = UsersMapper.fromAPI(body.data);
+            resolve(registerUserSuccess(user));
+            return;
+          }
+          default:
+            throw new HTTPCodeException({
+              status,
+              body: ErrorsMapper.fromAPI(body),
+            });
+        }
+      })
+      .catch(handleFailure(resolve, registerUserFailure));
+  });
 }
 
   search(name, groupId) {
