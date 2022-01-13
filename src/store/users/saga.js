@@ -1,4 +1,4 @@
-import { put, take, takeEvery, apply } from "redux-saga/effects";
+import { put, takeEvery, apply } from "redux-saga/effects";
 
 import {
   LOGIN_USER_REQUEST,
@@ -31,17 +31,15 @@ function* loginUser({ payload: { credentials, history } }) {
     credentials.email,
     credentials.password,
   ]);
-
   if (resultAction.type === LOGIN_USER_FAILURE) {
     yield put(loginUserFailure(resultAction.payload.error));
     return;
   }
-
   localStorage.setItem("login", JSON.stringify(resultAction.payload));
 
   yield put(loginUserSuccess(resultAction.payload.token));
 
-  history.push("/dashboard");
+  history.push("/admin/dashboard");
 }
 
 function* logoutUser({ payload: { history } }) {

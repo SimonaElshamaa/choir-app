@@ -45,10 +45,10 @@ export const loginUser = (credentials, history) => {
   };
 };
 
-export const loginUserSuccess = (token = "") => {
+export const loginUserSuccess = (token = "", user={}) => {
   return {
     type: LOGIN_USER_SUCCESS,
-    payload: { loginType: "store", token },
+    payload: { loginType: 'servent', token, user },
   };
 };
 

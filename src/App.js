@@ -16,14 +16,27 @@ import "./App.css";
 const history = createBrowserHistory();
 HistoryWarpper.setHistory(history);
 
+const renderComponent=(Component)=>()=>{
+  if(!localStorage.getItem("login")){
+    history.push("/login");
+    return <Login />;
+  }else if(localStorage.getItem("login") && 
+  (Component === Login || Component === Register)){
+    history.push("/admin/dashboard");
+    return <Admin />;
+  }else{
+    return <Component />;
+  }
+}
+
 function App() {
   return (
     <div>
       <BrowserRouter history={history}>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <Route path="/admin" component={Admin} />
+          <Route path="/login" render={renderComponent(Login)} />
+          <Route path="/register" render={renderComponent(Register)} />
+          <Route path="/admin" render={renderComponent(Admin)} />
           <Route path="/rtl" component={RTL} />
           <Redirect from="/" to="/admin/dashboard" />
         </Switch>

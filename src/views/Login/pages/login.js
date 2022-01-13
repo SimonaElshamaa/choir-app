@@ -41,7 +41,7 @@ export default function Login(props) {
 
   const onPressLogin = () => {
     props
-      .onSubmitLogin({ email, password })
+      .onSubmitLogin({ email, password }, props.history)
       .then(() => props.goToDashboard)
       .catch();
   };
@@ -74,8 +74,10 @@ export default function Login(props) {
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    onChange={setEmail}
-                    value={email}
+                    inputProps={{
+                      onChange: (event) => setEmail(event.target.value),
+                      value: email,
+                    }}
                   />
                 </GridItem>
               </GridContainer>
@@ -87,8 +89,11 @@ export default function Login(props) {
                     formControlProps={{
                       fullWidth: true,
                     }}
-                    onChange={setPassword}
-                    value={password}
+                    inputProps={{
+                      type: "password",
+                      onChange: (event) => setPassword(event.target.value),
+                      value: password,
+                    }}
                   />
                 </GridItem>
               </GridContainer>
@@ -108,4 +113,5 @@ export default function Login(props) {
 Login.propTypes = {
   onSubmitLogin: PropTypes.func,
   goToDashboard: PropTypes.func,
+  history: PropTypes.object
 };

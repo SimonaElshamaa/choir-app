@@ -85,7 +85,7 @@ export default function Admin({ ...rest }) {
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
-        // open={mobileOpen}
+        open={mobileOpen}
         color={color}
         {...rest}
       />

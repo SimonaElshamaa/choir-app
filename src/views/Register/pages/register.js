@@ -86,7 +86,7 @@ export default function Register(props) {
 
     props
       .register(user)
-      .then(()=>console.log("resss,,,,")).catch(()=>console.log("eroooor"));
+      .then(()=>console.log("resss,,,,")).catch((e)=>console.log("eroooor",e));
   };
 
 

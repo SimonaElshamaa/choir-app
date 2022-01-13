@@ -14,8 +14,8 @@ const mapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmitLogin: (credintials) => {
-      return dispatch(actionWithPromise(loginUser(credintials)));
+    onSubmitLogin: (credintials, history) => {
+      return dispatch(actionWithPromise(loginUser(credintials, history)));
     },
     goToDashboard: () => HistoryWarpper.history.push("/"),
   };

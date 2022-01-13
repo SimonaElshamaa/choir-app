@@ -34,7 +34,7 @@ export default class UsersAdapter {
           switch (status) {
             case 204:
             case 200: {
-              resolve(loginUserSuccess(body.data.Authorization));
+              resolve(loginUserSuccess(body.token, body.data));
               return;
             }
             default:

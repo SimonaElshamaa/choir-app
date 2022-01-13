@@ -13,6 +13,7 @@ const defaultState = {
   byId: {},
   token: "",
   loginType: "",
+  user: {},
 };
 
 export default (state = defaultState, action = {}) => {

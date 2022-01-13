@@ -37,7 +37,7 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/user",
+    path: "/addmember",
     name: "Add Member",
     rtlName: "اضافه مستخدم",
     icon: Person,
@@ -45,7 +45,7 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/table",
+    path: "/addattendance",
     name: "Prova List",
     rtlName: "قائمة البروفه",
     icon: "content_paste",
@@ -61,7 +61,7 @@ const dashboardRoutes = [
   //   layout: "/rtl",
   // },
   {
-    path: "/AttendancesList",
+    path: "/listattendance",
     name: "Group Attendances",
     rtlName: "قائمة البروفه",
     icon: "content_paste",
