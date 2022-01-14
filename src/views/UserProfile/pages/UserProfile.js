@@ -322,7 +322,7 @@ export default function UserProfile(props) {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <GroupsList groupId={groupId} setGroupId={setGroupId} />
+              <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
               <Button color="primary" onClick={onPressAddMember}>
                 Add Member
               </Button>
@@ -336,6 +336,7 @@ export default function UserProfile(props) {
 
 UserProfile.propTypes = {
   addUser: PropTypes.func,
+  role: PropTypes.object,
 };
 
 UserProfile.defaultProps = {};

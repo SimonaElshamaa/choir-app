@@ -16,7 +16,7 @@ import Search from "@material-ui/icons/Search";
 import Button from "../../../components/CustomButtons/Button.js";
 import CardBody from "../../../components/Card/CardBody.js";
 import CustomInput from "../../../components/CustomInput/CustomInput.js";
-import GroupsList from "./GroupsList";
+import GroupsList from "../../AttendancesList/pages/GroupsList";
 import { TextField } from "@material-ui/core";
 
 const componentStyles = {
@@ -121,7 +121,7 @@ export default function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary" className={classes.headerCard}>
-            <GroupsList groupId={groupId} setGroupId={setGroupId}/>
+            <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
           </CardHeader>
           <div className={classes.searchWrapper} style={{paddingTop:10}}>
             <CustomInput
@@ -172,6 +172,7 @@ TableList.defaultProps = {
 TableList.propTypes = {
   users: PropTypes.array,
   attendances:PropTypes.array,
+  role:PropTypes.object,
   listUsers: PropTypes.func,
   changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,

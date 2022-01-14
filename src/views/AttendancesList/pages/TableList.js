@@ -72,18 +72,18 @@ export default function TableList(props) {
 
 
   useEffect(()=>{
-    console.log("selectedDay",selectedDay,groupId)
-    props.changeGroup();
-    if(groupId && selectedDay){
-      props.listUsers(groupId);    
-      props.listGroupAttendance(groupId, new Date(selectedDay)).then(()=>{
-        if(props.attendances.length <0){
-          alert('sorry this day wasn\'t your group day, OR you didn\'t add attendance`!');
-        }
-      });
-    } else if(!selectedDay || !groupId){
-      alert('please make sure you select both group and date!');
-    }
+    // console.log("selectedDay",selectedDay,groupId)
+    // props.changeGroup();
+    // if(groupId && selectedDay){
+    //   props.listUsers(groupId);    
+    //   props.listGroupAttendance(groupId, new Date(selectedDay)).then(()=>{
+    //     if(props.attendances.length <0){
+    //       alert('sorry this day wasn\'t your group day, OR you didn\'t add attendance`!');
+    //     }
+    //   });
+    // } else if(!selectedDay || !groupId){
+    //   alert('please make sure you select both group and date!');
+    // }
   },[selectedDay, groupId]);
 
   const isAttended = (userId)=>{
@@ -111,7 +111,7 @@ export default function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary" className={classes.headerCard}>
-            <GroupsList groupId={groupId} setGroupId={setGroupId}/>
+            <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
           </CardHeader>
           <CardBody>
             <p>Choose a day</p>
@@ -140,6 +140,7 @@ TableList.defaultProps = {
 TableList.propTypes = {
   users: PropTypes.array,
   attendances:PropTypes.array,
+  role:PropTypes.object,
   listUsers: PropTypes.func,
   changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,

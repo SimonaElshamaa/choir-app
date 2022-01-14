@@ -1,31 +1,38 @@
 /* eslint-disable no-unreachable */
-export const MONDAY = 3;
-export const TUESDAY = 4;
-export const WEDNESDAY = 5;
-export const THURSDAY = 6;
-export const FRIDAY = 7;
-export const SATURDAY = 1;
-export const SUNDAY = 2;
+export const FIRST_PREP_SATURDAY = 1;
+export const SECOND_PREP_SATURDAY = 2;
+export const FIRST_PRIMARY_SUNDAY = 3;
+export const SECOND_PRIMARY_SUNDAY = 4;
+export const SECONDRY_MONDAY = 5;
+export const YOUTH_TUESDAY = 6;
+export const YOUTH_WEDNESDAY = 7;
+export const KIDS_WEDNESDAY = 8;
 
 export const getGroupName =(groupNumber)=>{
     switch(groupNumber){
-        case MONDAY:
-            return 'Monday';
+        case FIRST_PREP_SATURDAY:
+            return 'First Prep Saturday';
             break;
-        case TUESDAY:
-            return 'Tuesday';
+        case SECOND_PREP_SATURDAY:
+            return 'Secound Prep Saturday';
             break;
-        case WEDNESDAY:
-            return 'Wednesday';
+        case FIRST_PRIMARY_SUNDAY:
+            return 'First Primary Sunday';
             break;
-        case THURSDAY:
-            return 'Thursday';
+        case SECOND_PRIMARY_SUNDAY:
+            return 'Second Primary Sunday';
             break;
-        case SATURDAY:
-            return 'Saturday';
+        case SECONDRY_MONDAY:
+            return 'Secondry Monday';
             break;
-        case SUNDAY:
-            return 'Sunday';
+        case YOUTH_TUESDAY:
+            return 'Youth Tuesday';
+            break;
+        case YOUTH_WEDNESDAY:
+            return 'Youth Wednesday';
+            break;
+        case KIDS_WEDNESDAY:
+            return 'Kids Wednesday';
             break;
         default:
             return null;

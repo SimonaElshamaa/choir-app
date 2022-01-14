@@ -7,7 +7,7 @@ import TableList from "./pages/TableList";
 import {listGroupAttendance } from "../../store/attendances/actions";
 import {search,listUsers} from "../../store/users/actions";
 import {changeGroup} from "../../store/groups/actions";
-import {getAll as getAllUsers} from "../../store/users/selectors";
+import {getAll as getAllUsers, getCurrentUser} from "../../store/users/selectors";
 import {getGroupAttendance} from "../../store/attendances/selectors";
 
 import { actionWithPromise } from "../../middlewares/promises";
@@ -16,7 +16,8 @@ import { HistoryWarpper } from "../../utils/history";
 const mapStateToProps = (state) => {
   return {
     users:getAllUsers(state),
-    attendances:getGroupAttendance(state)
+    attendances:getGroupAttendance(state),
+    role:getCurrentUser(state).roleId,
   };
 };
 

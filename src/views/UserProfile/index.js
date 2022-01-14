@@ -6,10 +6,14 @@ import UserProfile from "./pages/UserProfile";
 // actions
 import { addUser } from "../../store/users/actions";
 import { actionWithPromise } from "../../middlewares/promises";
+import { getCurrentUser} from "../../store/users/selectors";
+
 // import { HistoryWarpper } from "../../utils/history";
 
-const mapStateToProps = () => {
-  return {};
+const mapStateToProps = (state) => {
+  return {
+    role:getCurrentUser(state).roleId,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {

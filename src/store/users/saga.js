@@ -37,7 +37,7 @@ function* loginUser({ payload: { credentials, history } }) {
   }
   localStorage.setItem("login", JSON.stringify(resultAction.payload));
 
-  yield put(loginUserSuccess(resultAction.payload.token));
+  yield put(loginUserSuccess(resultAction.payload.token,resultAction.payload.user));
 
   history.push("/admin/dashboard");
 }
