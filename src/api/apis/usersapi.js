@@ -46,10 +46,14 @@ export default class UsersApi {
   search(name, groupId) {
     return this.driver.get(
       `${this.storesPrefix}/search/${name}/${groupId}`,
-      {
-        name,
-        groupId,
-      },
+      authHeader()
+    );
+  }
+
+
+  getMe(id) {
+    return this.driver.get(
+      `${this.storesPrefix}/get_me/${id}`,
       authHeader()
     );
   }

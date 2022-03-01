@@ -57,9 +57,16 @@ const useStyles = makeStyles(componentStyles,styles);
 export default function TableList(props) {
   const classes = useStyles();
   const [groupId,setGroupId]=useState(null)
-  const [searchedName,setSearchedName]=useState(null)
+  const [searchedName,setSearchedName]=useState(undefined);
+  const [searchResult, setSearchResult] = useState([]);
+  const [currentServent, setCurrentServent] = useState({});
   const note = useState("")
 
+  useEffect(() => {
+    props.getMe().then((res)=>{
+      console.log(res.user)
+      setCurrentServent(res.user)});
+  }, []);
 
   useEffect(() => {
     if(groupId != null){
@@ -121,7 +128,7 @@ export default function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary" className={classes.headerCard}>
-            <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
+            <GroupsList groupId={groupId} setGroupId={setGroupId} role={currentServent?.roleId}/>
           </CardHeader>
           <div className={classes.searchWrapper} style={{paddingTop:10}}>
             <CustomInput
@@ -140,8 +147,14 @@ export default function TableList(props) {
             <Button color="white" aria-label="edit" justIcon round  onClick={() => { 
               console.log('searchedName,groupId',searchedName,groupId)   
               if(searchedName&&groupId){
-                const searched =  props.search(searchedName,groupId);
-                console.log('search result',searched)
+                props.search(searchedName,groupId)
+                .then((res)=>{
+                  console.log('search result',res)
+                   setSearchResult(res.users);
+                })
+                .catch((e)=>{
+                  console.log('error',e)
+                });
               }         
               else
                alert('please make sure that you choose group and name to search!');
@@ -153,9 +166,16 @@ export default function TableList(props) {
             <Table
               tableHeaderColor="primary"
               tableHead={["Name","Note", "attendance"]}
-              tableData={props.users.map((user) => {
-                return [user.fullName,note, attendanceButton(user.id)];
-              })}
+              tableData={
+                (searchedName&&searchResult&&searchResult.length>0)?
+                  searchResult.map((user) => {
+                    return [user.fullName,note, attendanceButton(user.id)];
+                })
+                :
+                  props.users.map((user) => {
+                    return [user.fullName,note, attendanceButton(user.id)];
+                  })
+              }
             />
           </CardBody>
         </Card>
@@ -172,11 +192,12 @@ TableList.defaultProps = {
 TableList.propTypes = {
   users: PropTypes.array,
   attendances:PropTypes.array,
-  role:PropTypes.object,
+  // role:PropTypes.object,
   listUsers: PropTypes.func,
   changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,
   listGroupAttendance: PropTypes.func,
   search:PropTypes.func,
   groups: PropTypes.func,
+  getMe:PropTypes.func
 };

@@ -18,6 +18,10 @@ HistoryWarpper.setHistory(history);
 
 const renderComponent=(Component)=>()=>{
   if(!localStorage.getItem("login")){
+    if(Component === Register){
+      history.push("/register");
+      return <Register />;
+    }
     history.push("/login");
     return <Login />;
   }else if(localStorage.getItem("login") && 

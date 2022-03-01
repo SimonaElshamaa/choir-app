@@ -14,6 +14,8 @@ import {
   searchSuccess,
   registerUserSuccess,
   registerUserFailure,
+  getMeSuccess,
+  getMeFailure,
 } from "../../store/users/actions";
 
 import ErrorsMapper from "../mappers/errors";
@@ -137,26 +139,49 @@ registerUser(user) {
   });
 }
 
-  search(name, groupId) {
-    return new Promise((resolve) => {
-      this.usersApi
-        .search(name, groupId)
-        .then(([status, body]) => {
-          switch (status) {
-            case 200:
-            case 204: {
-              const { users } = UsersMapper.fromAPIList(body.data);
-              resolve(searchSuccess(users));
-              return;
-            }
-            default:
-              throw new HTTPCodeException({
-                status,
-                body: ErrorsMapper.fromAPI(body),
-              });
+search(name, groupId) {
+  return new Promise((resolve) => {
+    this.usersApi
+      .search(name, groupId)
+      .then(([status, body]) => {
+        switch (status) {
+          case 200:
+          case 204: {
+            const { users } = UsersMapper.fromAPIList(body.data);
+            resolve(searchSuccess(users));
+            return;
           }
-        })
-        .catch(handleFailure(resolve, searchFailure));
-    });
-  }
+          default:
+            throw new HTTPCodeException({
+              status,
+              body: ErrorsMapper.fromAPI(body),
+            });
+        }
+      })
+      .catch(handleFailure(resolve, searchFailure));
+  });
+}
+
+get_me(id){
+  return new Promise((resolve) => {
+    this.usersApi
+      .getMe(id)
+      .then(([status, body]) => {
+        switch (status) {
+          case 200:
+          case 204: {
+            const { user } = UsersMapper.fromAPI(body.data);
+            resolve(getMeSuccess(user));
+            return;
+          }
+          default:
+            throw new HTTPCodeException({
+              status,
+              body: ErrorsMapper.fromAPI(body),
+            });
+        }
+      })
+      .catch(handleFailure(resolve, getMeFailure));
+  });
+}
 }

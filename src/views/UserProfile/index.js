@@ -12,7 +12,7 @@ import { getCurrentUser} from "../../store/users/selectors";
 
 const mapStateToProps = (state) => {
   return {
-    role:getCurrentUser(state).roleId,
+    role:getCurrentUser(state)?.roleId,
   };
 };
 

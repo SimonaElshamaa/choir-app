@@ -47,7 +47,10 @@ export default function GroupsList(props) {
    
   useEffect(() => {
     if(props.role && props.role.index){
-      setMenu([getRoleGroup(props.role.index)]);
+      const serventGroup= getRoleGroup(props.role.index);
+      if(serventGroup){
+        setMenu([serventGroup]);
+      }
     }
   }, [props.role]);
 

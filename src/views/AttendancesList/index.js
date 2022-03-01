@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
   return {
     users:getAllUsers(state),
     attendances:getGroupAttendance(state),
-    role:getCurrentUser(state).roleId,
+    role:getCurrentUser(state)?.roleId,
   };
 };
 

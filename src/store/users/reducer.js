@@ -4,6 +4,7 @@ import { CHANGE_GROUP_REQUEST } from "../groups/actions";
 
 import {
   ADD_USER_SUCCESS,
+  GET_ME_SUCCESS,
   LIST_USERS_SUCCESS,
   LOGIN_USER_SUCCESS,
   LOGOUT_USER_SUCCESS,
@@ -32,6 +33,7 @@ export default (state = defaultState, action = {}) => {
         byId: toByIds(state.byId, [payload.user]),
       };
     case LOGIN_USER_SUCCESS:
+    case GET_ME_SUCCESS:
       return {
         ...state,
         ...payload,

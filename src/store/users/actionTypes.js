@@ -16,6 +16,7 @@ export const LIST_USERS = "LIST_USERS";
 export const ADD_USER = "ADD_USER";
 export const SEARCH = "SEARCH";
 export const REGISTER_USER = "REGISTER_USER";
+export const GET_ME = "GET_ME";
 
 /**
  * Helper Methods

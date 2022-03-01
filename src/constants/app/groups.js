@@ -1,12 +1,12 @@
 /* eslint-disable no-unreachable */
-export const FIRST_PREP_SATURDAY = 1;
-export const SECOND_PREP_SATURDAY = 2;
-export const FIRST_PRIMARY_SUNDAY = 3;
-export const SECOND_PRIMARY_SUNDAY = 4;
-export const SECONDRY_MONDAY = 5;
-export const YOUTH_TUESDAY = 6;
-export const YOUTH_WEDNESDAY = 7;
-export const KIDS_WEDNESDAY = 8;
+export const FIRST_PREP_SATURDAY = 2;
+export const SECOND_PREP_SATURDAY = 3;
+export const FIRST_PRIMARY_SUNDAY = 4;
+export const SECOND_PRIMARY_SUNDAY = 5;
+export const SECONDRY_MONDAY = 6;
+export const YOUTH_TUESDAY = 7;
+export const YOUTH_WEDNESDAY = 8;
+export const KIDS_WEDNESDAY = 9;
 
 export const getGroupName =(groupNumber)=>{
     switch(groupNumber){

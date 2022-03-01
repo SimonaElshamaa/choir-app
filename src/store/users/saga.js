@@ -11,7 +11,8 @@ import {
   LIST_USERS_REQUEST,
   ADD_USER_REQUEST,
   SEARCH_REQUEST,
-  REGISTER_USER_REQUEST
+  REGISTER_USER_REQUEST,
+  GET_ME_REQUEST,
 } from "./actions";
 
 import createApi from "../../api";
@@ -23,6 +24,7 @@ export default function* authSaga() {
   yield takeEvery(ADD_USER_REQUEST, addUser);
   yield takeEvery(REGISTER_USER_REQUEST, registerUser);
   yield takeEvery(SEARCH_REQUEST, search);
+  yield takeEvery(GET_ME_REQUEST, getMe);
 }
 
 function* loginUser({ payload: { credentials, history } }) {
@@ -81,5 +83,12 @@ function* search({ payload: { name, groupId } }) {
     name,
     groupId,
   ]);
+  yield put(resultAction);
+}
+
+function* getMe() {
+  const usersAdapter = createApi().users;
+  const resultAction = yield apply(usersAdapter, usersAdapter.get_me);
+  console.log(resultAction)
   yield put(resultAction);
 }

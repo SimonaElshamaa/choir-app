@@ -6,6 +6,7 @@ import {
   SEARCH,
   REGISTER_USER,
   getActionType,
+  GET_ME,
   REQUEST,
   SUCCESS,
   FAILURE,
@@ -37,6 +38,10 @@ export const REGISTER_USER_FAILURE = getActionType(REGISTER_USER, FAILURE);
 export const SEARCH_REQUEST = getActionType(SEARCH, REQUEST);
 export const SEARCH_SUCCESS = getActionType(SEARCH, SUCCESS);
 export const SEARCH_FAILURE = getActionType(SEARCH, FAILURE);
+
+export const GET_ME_REQUEST = getActionType(GET_ME, REQUEST);
+export const GET_ME_SUCCESS = getActionType(GET_ME, SUCCESS);
+export const GET_ME_FAILURE = getActionType(GET_ME, FAILURE);
 
 export const loginUser = (credentials, history) => {
   return {
@@ -161,6 +166,26 @@ export function searchSuccess(users = []) {
 export function searchFailure(error = null) {
   return {
     type: SEARCH_FAILURE,
+    payload: { error },
+  };
+}
+
+export function getMe() {
+  return {
+    type: GET_ME_REQUEST
+  };
+}
+
+export function getMeSuccess(user = {}) {
+  return {
+    type: GET_ME_SUCCESS,
+    payload: { user },
+  };
+}
+
+export function getMeFailure(error = null) {
+  return {
+    type: GET_ME_FAILURE,
     payload: { error },
   };
 }
