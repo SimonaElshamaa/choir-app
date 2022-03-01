@@ -5,9 +5,9 @@ import TableList from "./pages/TableList";
 
 // actions
 import {listGroupAttendance } from "../../store/attendances/actions";
-import {search,listUsers} from "../../store/users/actions";
+import {search,listUsers, getMe} from "../../store/users/actions";
 import {changeGroup} from "../../store/groups/actions";
-import {getAll as getAllUsers, getCurrentUser} from "../../store/users/selectors";
+import {getAll as getAllUsers} from "../../store/users/selectors";
 import {getGroupAttendance} from "../../store/attendances/selectors";
 
 import { actionWithPromise } from "../../middlewares/promises";
@@ -17,7 +17,6 @@ const mapStateToProps = (state) => {
   return {
     users:getAllUsers(state),
     attendances:getGroupAttendance(state),
-    role:getCurrentUser(state)?.roleId,
   };
 };
 
@@ -34,6 +33,7 @@ const mapDispatchToProps = (dispatch) => {
     listGroupAttendance:(groupId, date) => {
       return dispatch(actionWithPromise(listGroupAttendance(groupId, date)));
     },
+    getMe: () => dispatch(actionWithPromise(getMe())),
   };
 };
 

@@ -18,6 +18,9 @@ import CardHeader from "../../../components/Card/CardHeader.js";
 import CardBody from "../../../components/Card/CardBody.js";
 // import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import GroupsList from "./GroupsList";
+import CustomInput from "../../../components/CustomInput/CustomInput.js";
+import Search from "@material-ui/icons/Search";
+import Button from "../../../components/CustomButtons/Button.js";
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -60,9 +63,12 @@ const useStyles = makeStyles(componentStyles,styles);
 export default function TableList(props) {
   const classes = useStyles();
   const [groupId,setGroupId]=useState(null)
-  // const [searchedName,setSearchedName]=useState(null)
+  const [searchedName,setSearchedName]=useState(null)
   const note = useState("")
   const [selectedDay, setSelectedDay]= useState(undefined);
+  const [currentServent, setCurrentServent] = useState({});
+  const [searchResult, setSearchResult] = useState([]);
+
 
   useEffect(() => {
     if(groupId != null){
@@ -70,9 +76,13 @@ export default function TableList(props) {
     }
   }, [groupId]);
 
+  useEffect(() => {
+    props.getMe().then((res)=>{
+      setCurrentServent(res.user)}
+      );
+  }, []);
 
   useEffect(()=>{
-    // console.log("selectedDay",selectedDay,groupId)
     props.changeGroup();
     if(groupId && selectedDay){
       props.listUsers(groupId);    
@@ -105,25 +115,66 @@ export default function TableList(props) {
       </GridContainer>
     );
   };
-
+  const searchButton=()=>{
+    return(
+      <div className={classes.searchWrapper} style={{paddingTop:10}}>
+        <CustomInput
+          formControlProps={{
+            className: classes.margin + " " + classes.search,
+          }}
+          inputProps={{
+            placeholder: "Search",
+            inputProps: {
+              "aria-label": "Search",
+            },
+            onChange: (event) =>setSearchedName(event.target.value),
+            value: searchedName,
+          }}
+        />
+        <Button color="white" aria-label="edit" justIcon round  onClick={() => { 
+          if(searchedName&&groupId){
+            props.search(searchedName,groupId)
+            .then((res)=>{
+              setSearchResult(res.users);
+            })
+            .catch((e)=>{
+              console.log('error',e)
+            });
+          }         
+          else
+          alert('please make sure that you choose group and name to search!');
+        }}>
+          <Search />
+        </Button>
+      </div>
+    );
+  }
   return (
     <GridContainer>
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary" className={classes.headerCard}>
-            <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
+            <GroupsList groupId={groupId} setGroupId={setGroupId} role={currentServent?.roleId}/>
           </CardHeader>
           <CardBody>
             <p>Choose a day</p>
             <DayPickerInput 
             style={{height:30}}
             onDayChange={setSelectedDay} />
+            {searchButton()}
             <Table
               tableHeaderColor="primary"
               tableHead={["Name","Note", "attendance"]}
-              tableData={props.users.map((user) => {
-                return [user.fullName,note, attendanceButton(user.id)];
-              })}
+              tableData={
+                (searchedName&&searchResult&&searchResult.length>0)?
+                  searchResult.map((user) => {
+                    return [user.fullName,note, attendanceButton(user.id)];
+                })
+                :
+                  props.users.map((user) => {
+                    return [user.fullName,note, attendanceButton(user.id)];
+                  })
+              }
             /> 
           </CardBody>
         </Card>
@@ -140,11 +191,10 @@ TableList.defaultProps = {
 TableList.propTypes = {
   users: PropTypes.array,
   attendances:PropTypes.array,
-  role:PropTypes.object,
   listUsers: PropTypes.func,
   changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,
   listGroupAttendance: PropTypes.func,
   search:PropTypes.func,
-  groups: PropTypes.func,
+  getMe:PropTypes.func
 };

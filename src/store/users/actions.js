@@ -142,7 +142,6 @@ export function registerUserSuccess(user = {}) {
 }
 
 export function registerUserFailure(error = null) {
-  console.log('in failure');
   return {
     type: REGISTER_USER_FAILURE,
     payload: { error },

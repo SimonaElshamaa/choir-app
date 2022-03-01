@@ -89,6 +89,5 @@ function* search({ payload: { name, groupId } }) {
 function* getMe() {
   const usersAdapter = createApi().users;
   const resultAction = yield apply(usersAdapter, usersAdapter.get_me);
-  console.log(resultAction)
   yield put(resultAction);
 }

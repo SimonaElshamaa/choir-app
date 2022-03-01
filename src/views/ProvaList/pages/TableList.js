@@ -64,7 +64,6 @@ export default function TableList(props) {
 
   useEffect(() => {
     props.getMe().then((res)=>{
-      console.log(res.user)
       setCurrentServent(res.user)
       if(res.user.roleId){
         const groupId=res.user.roleId.index;
@@ -151,11 +150,9 @@ export default function TableList(props) {
               }}
             />
             <Button color="white" aria-label="edit" justIcon round  onClick={() => { 
-              console.log('searchedName,groupId',searchedName,groupId)   
               if(searchedName&&groupId){
                 props.search(searchedName,groupId)
                 .then((res)=>{
-                  console.log('search result',res)
                    setSearchResult(res.users);
                 })
                 .catch((e)=>{
@@ -198,7 +195,6 @@ TableList.defaultProps = {
 TableList.propTypes = {
   users: PropTypes.array,
   attendances:PropTypes.array,
-  // role:PropTypes.object,
   listUsers: PropTypes.func,
   changeGroup: PropTypes.func,
   addAttendance: PropTypes.func,

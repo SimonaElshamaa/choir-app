@@ -82,9 +82,7 @@ export default function UserProfile(props) {
     };
     props
       .addUser(user)
-      .then((res) => {
-        console.log("resss", res);
-      })
+      .then()
       .catch((e) => {
         console.log("eroooor", e);
       });
