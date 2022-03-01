@@ -65,7 +65,13 @@ export default function TableList(props) {
   useEffect(() => {
     props.getMe().then((res)=>{
       console.log(res.user)
-      setCurrentServent(res.user)});
+      setCurrentServent(res.user)
+      if(res.user.roleId){
+        const groupId=res.user.roleId.index;
+        const date = new Date();
+        props.listGroupAttendance(groupId, date);
+      }}
+      );
   }, []);
 
   useEffect(() => {

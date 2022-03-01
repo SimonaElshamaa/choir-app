@@ -17,7 +17,6 @@ export default class GroupsApi {
   get_attendances(groupId, today, tomorrow) {
     return this.driver.get(
       `${this.groupsPrefix}/get_group_attendance_by_date/${groupId}/${today}/${tomorrow}`,
-      {},
       authHeader()
     );
   }

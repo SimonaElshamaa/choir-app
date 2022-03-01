@@ -33,7 +33,7 @@ export function fromAPI(apiUser) {
       motherJob: apiUser.motherJob,
       sisters: apiUser.sisters,
       brothers: apiUser.brothers,
-      roleIds: apiUser.roleIds,
+      roleId: apiUser.roleId,
       groupId:apiUser.groupId,
       ...dates,
     }),

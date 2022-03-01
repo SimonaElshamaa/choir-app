@@ -20,9 +20,6 @@ export default class UsersApi {
   listUsers(groupId) {
     return this.driver.get(
       this.storesPrefix + `/get_group_users/${groupId}`,
-      {
-        groupId,
-      },
       authHeader()
     );
   }
