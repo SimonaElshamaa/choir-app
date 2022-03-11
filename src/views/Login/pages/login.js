@@ -104,6 +104,9 @@ export default function Login(props) {
               </Button>
             </CardFooter>
           </Card>
+          <h7>I don't have account, I need to  
+          <a href="/register"> register</a>
+          </h7>
         </GridItem>
       </GridContainer>
     </div>

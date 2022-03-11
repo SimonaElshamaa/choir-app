@@ -67,6 +67,7 @@ export default function TableList(props) {
       setCurrentServent(res.user)
       if(res.user.roleId){
         const groupId=res.user.roleId.index;
+        setGroupId(groupId)
         const date = new Date();
         props.listGroupAttendance(groupId, date);
       }}

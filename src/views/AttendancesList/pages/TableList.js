@@ -1,5 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState,useEffect } from "react";
+
+// @material-ui/icons
+import AddAlert from "@material-ui/icons/AddAlert";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -15,6 +18,7 @@ import CardHeader from "../../../components/Card/CardHeader.js";
 * import Search from "@material-ui/icons/Search";
 * import Button from "../../../components/CustomButtons/Button.js";
 */
+import Snackbar from "../../../components/Snackbar/Snackbar.js";
 import CardBody from "../../../components/Card/CardBody.js";
 // import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import GroupsList from "./GroupsList";
@@ -68,6 +72,8 @@ export default function TableList(props) {
   const [selectedDay, setSelectedDay]= useState(undefined);
   const [currentServent, setCurrentServent] = useState({});
   const [searchResult, setSearchResult] = useState([]);
+  const [hasMembers, setHasMembers] = useState([]);
+  const [infoPopup, setInfoPopup] = useState(false);
 
 
   useEffect(() => {
@@ -78,7 +84,9 @@ export default function TableList(props) {
 
   useEffect(() => {
     props.getMe().then((res)=>{
-      setCurrentServent(res.user)}
+      setCurrentServent(res.user)
+      setGroupId(res.user.roleId.index)
+    }
       );
   }, []);
 
@@ -88,11 +96,11 @@ export default function TableList(props) {
       props.listUsers(groupId);    
       props.listGroupAttendance(groupId, new Date(selectedDay)).then(()=>{
         if(props.attendances.length <0){
-          alert('sorry this day wasn\'t your group day, OR you didn\'t add attendance`!');
+         setHasMembers(false)
         }
       });
-    } else if(!selectedDay || !groupId){
-      alert('please make sure you select both group and date!');
+    } else if(!selectedDay){
+      setInfoPopup(true);
     }
   },[selectedDay, groupId]);
 
@@ -142,7 +150,7 @@ export default function TableList(props) {
             });
           }         
           else
-          alert('please make sure that you choose group and name to search!');
+          setInfoPopup(true)
         }}>
           <Search />
         </Button>
@@ -162,6 +170,8 @@ export default function TableList(props) {
             style={{height:30}}
             onDayChange={setSelectedDay} />
             {searchButton()}
+            {!hasMembers &&
+            <h7>sorry this day wasn\'t your group day, OR you didn't add attendance!</h7>}
             <Table
               tableHeaderColor="primary"
               tableHead={["Name","Note", "attendance"]}
@@ -179,6 +189,15 @@ export default function TableList(props) {
           </CardBody>
         </Card>
       </GridItem>
+      <Snackbar
+          place="tc"
+          color="info"
+          icon={AddAlert}
+          message="please make sure you select both group and date!"
+          open={infoPopup}
+          closeNotification={() => setInfoPopup(false)}
+          close
+        />
     </GridContainer>
   );
 }

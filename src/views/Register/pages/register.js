@@ -96,7 +96,7 @@ export default function Register(props) {
         setTimeout(function () {
           setSubmitPopup(false);
         }, 6000);
-        props.history.push("/login")
+        props.history.push("/admin/addattendance")
       }).catch((e)=>{
         getError(e);
         setErrorPopup(true);
@@ -364,6 +364,9 @@ export default function Register(props) {
               </Button>
             </CardFooter>
           </Card>
+          <h7>go to  
+          <a href="/login"> login</a>
+          </h7>
         </GridItem>
         <Snackbar
           place="tc"
