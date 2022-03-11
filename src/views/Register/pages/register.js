@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-
+// @material-ui/icons
+import AddAlert from "@material-ui/icons/AddAlert";
 // core components
 import GridItem from "../../../components/Grid/GridItem.js";
 import GridContainer from "../../../components/Grid/GridContainer.js";
@@ -10,6 +11,8 @@ import CustomInput from "../../../components/CustomInput/CustomInput.js";
 import Button from "../../../components/CustomButtons/Button.js";
 import Card from "../../../components/Card/Card.js";
 import CardHeader from "../../../components/Card/CardHeader.js";
+import Snackbar from "../../../components/Snackbar/Snackbar.js";
+
 import PropTypes from "prop-types";
 
 // import CardAvatar from "../../components/Card/CardAvatar.js";
@@ -61,7 +64,9 @@ export default function Register(props) {
   const [note, setNote] = useState("");
   const [groupId, setGroupId] = useState(null);
   const [roleId, setRoleId] = useState(null);
-
+  const [submitPopup, setSubmitPopup] = useState(false);
+  const [errorPopup, setErrorPopup] = useState(false);
+  const [error, setError] = useState("");
   
   const Submit = () => {
     let user = {
@@ -86,9 +91,28 @@ export default function Register(props) {
 
     props
       .register(user)
-      .then().catch((e)=>console.log("eroooor",e));
+      .then(()=>{
+        setSubmitPopup(true);
+        setTimeout(function () {
+          setSubmitPopup(false);
+        }, 6000);
+        props.history.push("/login")
+      }).catch((e)=>{
+        getError(e);
+        setErrorPopup(true);
+        setTimeout(function () {
+          setErrorPopup(false);
+        }, 6000);
+        console.log("eroooor",e)
+      });
   };
-
+  const getError=(e)=>{
+    if(typeof e.details === 'object'){
+      setError(e.details.map((detail)=>detail.msg).join(', '))
+    }else{
+      setError(e.details)
+    }
+  };
 
   return (
     <div
@@ -333,7 +357,7 @@ export default function Register(props) {
               </GridContainer>
             </CardBody>
             <CardFooter>
-            <GroupsList groupId={groupId} setGroupId={setGroupId} />
+            <GroupsList groupId={groupId} setGroupId={setGroupId} buttonTitle={'Which group you are member of ?'}/>
             <RolesList roleId={roleId} setRoleId={setRoleId} />
               <Button color="primary" onClick={Submit}>
                 Submit
@@ -341,6 +365,24 @@ export default function Register(props) {
             </CardFooter>
           </Card>
         </GridItem>
+        <Snackbar
+          place="tc"
+          color="success"
+          icon={AddAlert}
+          message="Your registration is successfully submited."
+          open={submitPopup}
+          closeNotification={() => setSubmitPopup(false)}
+          close
+        />
+        <Snackbar
+          place="tc"
+          color="danger"
+          icon={AddAlert}
+          message={error}
+          open={errorPopup}
+          closeNotification={() => setErrorPopup(false)}
+          close
+        />
       </GridContainer>
     </div>
   );

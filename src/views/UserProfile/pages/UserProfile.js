@@ -320,7 +320,7 @@ export default function UserProfile(props) {
               </GridContainer>
             </CardBody>
             <CardFooter>
-              <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role}/>
+              <GroupsList groupId={groupId} setGroupId={setGroupId} role={props.role} buttonTitle={'Group'}/>
               <Button color="primary" onClick={onPressAddMember}>
                 Add Member
               </Button>

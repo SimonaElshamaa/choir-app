@@ -68,7 +68,7 @@ export default function RolesList(props) {
       aria-haspopup="true"
       onClick={handleClickRoleSelector}
       >
-        {`role${getRoleName(props.roleId)}`}
+        {`role${ getRoleName(props.roleId)}`}
       </Button>
          <Poppers
           open={Boolean(openRolesList)}

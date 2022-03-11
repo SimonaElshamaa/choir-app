@@ -154,7 +154,7 @@ export default function TableList(props) {
       <GridItem xs={12} sm={12} md={12}>
         <Card plain>
           <CardHeader plain color="primary" className={classes.headerCard}>
-            <GroupsList groupId={groupId} setGroupId={setGroupId} role={currentServent?.roleId}/>
+            <GroupsList groupId={groupId} setGroupId={setGroupId} role={currentServent?.roleId}  buttonTitle={'Please select group!'}/>
           </CardHeader>
           <CardBody>
             <p>Choose a day</p>

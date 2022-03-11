@@ -58,15 +58,13 @@ export default function GroupsList(props) {
     <div>
       <div className={classes.manager}>
         <Button
-          color={"transparent"}
+          color={"primary"}
           simple={!(window.innerWidth > 959)}
           aria-owns={openGroupsList ? "profile-menu-list-grow" : null}
           aria-haspopup="true"
           onClick={handleClickGroupSelector}
-          className={classes.buttonLink}
         >
-          {!props.groupId ?<h4 className={classes.cardTitleWhite}>Select Group</h4>:
-          <h4 className={classes.cardTitleWhite}>Group {getGroupName(props.groupId)}</h4>}
+          {!props.groupId ?props.buttonTitle:getGroupName(props.groupId)}
         </Button>
         <Poppers
           open={Boolean(openGroupsList)}
@@ -119,4 +117,5 @@ GroupsList.defaultProps = {
 GroupsList.propTypes = {
   setGroupId: PropTypes.func.isRequired,
   groupId: PropTypes.number,
+  buttonTitle: PropTypes.string
 };
