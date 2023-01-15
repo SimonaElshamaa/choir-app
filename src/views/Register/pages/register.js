@@ -107,9 +107,18 @@ export default function Register(props) {
       });
   };
   const getError=(e)=>{
-    if(typeof e.details === 'object'){
-      setError(e.details.map((detail)=>detail.msg).join(', '))
-    }else{
+    if(
+      typeof e.details === 'object' 
+      && Array.isArray(e.details)
+    ){
+      setError(e.details.map((detail)=>detail.msg).join(', '));
+    }else if(typeof e.details === 'object' ){
+      let errorArray=Object.keys(e.details).map(function(key) {
+          return e.details[key];
+      });
+      setError(errorArray.map((error)=>error.msg).join(', '))
+    }
+    else{
       setError(e.details)
     }
   };
