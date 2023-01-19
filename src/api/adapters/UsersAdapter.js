@@ -122,6 +122,7 @@ registerUser(user) {
     this.usersApi
       .registerUser(user)
       .then(([status, body]) => {
+        console.log('/////',status,body)
         switch (status) {
           case 200: {
             const { user } = UsersMapper.fromAPI(body.data);
