@@ -123,7 +123,7 @@ registerUser(user) {
     this.usersApi
       .registerUser(user)
       .then(([status, body]) => {
-        console.log('/////',status,body)
+        console.log('yessss it is here',status,body)
         switch (status) {
           case 200: {
             const { user } = UsersMapper.fromAPI(body.data);
