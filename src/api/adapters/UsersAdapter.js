@@ -118,7 +118,7 @@ export default class UsersAdapter {
 }
 
 registerUser(user) {
-  console.log('register user---->marcooo111')
+  console.log('register user')
   return new Promise((resolve) => {
     this.usersApi
       .registerUser(user)
