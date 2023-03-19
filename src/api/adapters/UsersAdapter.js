@@ -137,10 +137,7 @@ registerUser(user) {
             });
         }
       })
-      .catch((e)=>{
-        console.log('error is',e)
-        return handleFailure(resolve, registerUserFailure)
-      });
+      .catch(handleFailure(resolve, registerUserFailure));
   });
 }
 
