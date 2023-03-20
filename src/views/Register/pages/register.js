@@ -107,8 +107,8 @@ export default function Register(props) {
       });
   };
   const getError=(e)=>{
-    if(
-      typeof e.details === 'object' 
+    if(e.details
+      &&typeof e.details === 'object' 
       && Array.isArray(e.details)
     ){
       setError(e.details.map((detail)=>detail.msg).join(', '));
