@@ -98,7 +98,7 @@ export default function Register(props) {
         }, 6000);
         props.history.push("/admin/addattendance")
       }).catch((e)=>{
-        e.details && getError(e);
+        getError(e);
         setErrorPopup(true);
         setTimeout(function () {
           setErrorPopup(false);
