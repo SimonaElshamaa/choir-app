@@ -98,7 +98,7 @@ export default function Register(props) {
         }, 6000);
         props.history.push("/admin/addattendance")
       }).catch((e)=>{
-        getError(e);
+        e.details && getError(e);
         setErrorPopup(true);
         setTimeout(function () {
           setErrorPopup(false);
@@ -107,8 +107,8 @@ export default function Register(props) {
       });
   };
   const getError=(e)=>{
-    if(e.details
-      &&typeof e.details === 'object' 
+    if(
+      typeof e.details === 'object' 
       && Array.isArray(e.details)
     ){
       setError(e.details.map((detail)=>detail.msg).join(', '));
