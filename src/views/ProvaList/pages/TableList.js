@@ -60,7 +60,7 @@ export default function TableList(props) {
   const [searchedName,setSearchedName]=useState(undefined);
   const [searchResult, setSearchResult] = useState([]);
   const [currentServent, setCurrentServent] = useState({});
-  const note = useState("")
+  // const note = useState("")
 
   useEffect(() => {
     props.getMe().then((res)=>{
@@ -169,15 +169,15 @@ export default function TableList(props) {
           <CardBody>
             <Table
               tableHeaderColor="primary"
-              tableHead={["Name","Note", "attendance"]}
+              tableHead={["Name","Telephone", "attendance"]}
               tableData={
                 (searchedName&&searchResult&&searchResult.length>0)?
                   searchResult.map((user) => {
-                    return [user.fullName,note, attendanceButton(user.id)];
+                    return [user.fullName,user.mobile, attendanceButton(user.id)];
                 })
                 :
                   props.users.map((user) => {
-                    return [user.fullName,note, attendanceButton(user.id)];
+                    return [user.fullName,user.mobile, attendanceButton(user.id)];
                   })
               }
             />
