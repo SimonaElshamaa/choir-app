@@ -1,5 +1,7 @@
 import React from "react";
 import classNames from "classnames";
+import { createBrowserHistory } from "history";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -20,8 +22,12 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import Button from "../CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
+import { HistoryWarpper } from "../../utils/history";
 
 const useStyles = makeStyles(styles);
+
+const history = createBrowserHistory();
+HistoryWarpper.setHistory(history);
 
 export default function AdminNavbarLinks() {
   const classes = useStyles();
@@ -46,6 +52,8 @@ export default function AdminNavbarLinks() {
   };
   const handleCloseProfile = () => {
     setOpenProfile(null);
+    window.localStorage.clear();
+    history.push("/login");
   };
   return (
     <div>
